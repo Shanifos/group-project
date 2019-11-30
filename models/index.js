@@ -4,6 +4,11 @@ const UsersModel = require('./users')
 const courseCatalogModel = require('./courseCatalog')
 const classModel = require('./class')
 const rosterModel = require('./roster')
+const assignmentModel = require('./assignments')
+const attendanceModel = require('./attendance')
+const gradebookModel = require('./gradebook')
+const assessmentModel = require('./assessment')
+const goalsModel = require('./goals')
 
 /*const allConfigs = require('../config/sequelize')
 
@@ -24,9 +29,24 @@ const classTable = classModel(connection, Sequelize)
 
 const roster = rosterModel(connection, Sequelize)
 
+const assignments = assignmentModel(connection, Sequelize)
+
+const attendance = attendanceModel(connection, Sequelize)
+
+const gradebook = gradebookModel(connection, Sequelize)
+
+const assessment = assessmentModel(connection, Sequelize)
+
+const goals = goalsModel(connection, Sequelize)
+
 module.exports = {
   Users,
   courseCatalog,
   classTable,
-  roster
+  roster,
+  assignments,
+  attendance,
+  gradebook,
+  assessment,
+  goals
 }
