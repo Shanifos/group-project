@@ -23,10 +23,12 @@ module.exports = {
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
       updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
       deletedAt: { type: Sequelize.DATE },
+
     })
 
-    await queryInterface.createTable('classTable', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //pulled in from userTable, email will then be available by pulling in id
+    await queryInterface.createTable('classTables', {
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+      userId: { type: Sequelize.INTEGER }, //pulled in from userTable, email will then be available by pulling in id
       courseId: { type: Sequelize.INTEGER },
       schedule: { type: Sequelize.STRING },
       semester: { type: Sequelize.STRING },
@@ -36,8 +38,9 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    await queryInterface.createTable('assignmentsTable', {
+    await queryInterface.createTable('assignmentsTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+      userId: { type: Sequelize.INTEGER },
       classId: { type: Sequelize.INTEGER }, //from class table
       assignmentName: { type: Sequelize.STRING },
       assignmentType: { type: Sequelize.STRING },
@@ -48,8 +51,9 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    await queryInterface.createTable('attendanceTable', {
+    await queryInterface.createTable('attendanceTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+      userId: { type: Sequelize.INTEGER },
       classId: { type: Sequelize.INTEGER }, //from class table
       daysAbsent: { type: Sequelize.INTEGER },
       daysAttended: { type: Sequelize.INTEGER },
@@ -58,8 +62,9 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    await queryInterface.createTable('gradebookTable', {
+    await queryInterface.createTable('gradebookTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+      userId: { type: Sequelize.INTEGER },
       classId: { type: Sequelize.INTEGER }, //from class table
       assignmentGrade: { type: Sequelize.INTEGER },
       average: { type: Sequelize.INTEGER },
@@ -68,8 +73,9 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    await queryInterface.createTable('assessmentTable', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+    await queryInterface.createTable('assessmentTables', {
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+      userId: { type: Sequelize.INTEGER },//somehow pulled in from userTable
       classId: { type: Sequelize.INTEGER }, //from class table
       assessmentName: { type: Sequelize.STRING },
       assessmentType: { type: Sequelize.STRING },
@@ -79,8 +85,19 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    await queryInterface.createTable('goalsTable', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+    await queryInterface.createTable('studentSchedules', {
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+      userId: { type: Sequelize.INTEGER, references: { model: 'userTables', key: 'id' } },
+      courseId: { type: Sequelize.INTEGER, },
+      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      deletedAt: { type: Sequelize.DATE },
+
+    })
+
+    return queryInterface.createTable('goalsTable', {
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+      userId: { type: Sequelize.INTEGER },//somehow pulled in from userTable
       classId: { type: Sequelize.INTEGER }, //from class table
       assignmentName: { type: Sequelize.STRING },
       assignmentType: { type: Sequelize.STRING },
@@ -91,12 +108,7 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
-    return queryInterface.createTable('rosterTable', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //pulled in from userTable, all other info will be available from id
-      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
-      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
-      deletedAt: { type: Sequelize.DATE },
-    })
+
   },
 
   down: async (queryInterface, Sequelize) => {

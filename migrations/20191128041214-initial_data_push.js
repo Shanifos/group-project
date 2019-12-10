@@ -7,7 +7,19 @@ module.exports = {
       { firstName: 'Mary', lastName: 'Smith', Role: 'Admin', emailAddress: 'MarySmith@sjcme.edu', password: 'password' },
       { firstName: 'Colin', lastName: 'Frey', Role: 'Student', emailAddress: 'ColinFrey@sjcme.edu', password: 'CouncilManRox' }
     ])
+    await queryInterface.bulkInsert('classTables', [
+      {
+        userId: 1, courseId: 1, schedule: 'Monday 12pm - 1pm', semester: 'winter', spotsAvailable: 4
+      }
+    ])
+    return queryInterface.bulkInsert('studentSchedules', [
+      {
+        userId: Sequelize.literal('(select id from userTables where role like "student")'),
+        courseId: 1
+      },
+    ])
   },
+
 
   down: async (queryInterface, Sequelize) => {
     /*

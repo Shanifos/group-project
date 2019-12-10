@@ -1,6 +1,12 @@
 const goals = (connection, Sequelize) => {
     return connection.define('goalsTable', {
-        id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+        userID: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'users',
+                key: 'id'
+            }
+        }, //somehow pulled in from userTable
         classId: { type: Sequelize.INTEGER }, //from class table
         assignmentName: { type: Sequelize.STRING },
         assignmentType: { type: Sequelize.STRING },

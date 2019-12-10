@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const Sequelize = require('sequelize')
 const models = require('./models')
-console.log(models)
 
 const app = express()
 
@@ -41,7 +40,42 @@ app.get('/backpack/:id', async (request, response) => {
     }
 })
 
+app.get('/studentclass/:id/', async (request, response) => {
+    const matchingRequest = await models.Users.findAll({
+        attributes: ['firstName', 'lastName', 'emailAddress'],
+        where:
+        {
+            'id': request.params.id,
+            'role': 'student'
 
+        },
+        include: [
+            {
+                model: models.studentSchedule,
+                attributes: ['courseId'],
+                include: [
+                    {
+                        model: models.classTable,
+                        attributes: ['schedule', 'semester'],
+                        include: [
+                            {
+                                model: models.courseCatalog,
+                                attributes: ['courseName', 'courseDescription']
+                            }]
+                    },
+                ]
+            },
+
+
+        ],
+
+    })
+    if (matchingRequest.length) {
+        response.send(matchingRequest)
+    } else {
+        response.status(404).send('Please Enter a Student ID')
+    }
+})
 
 app.post('/backpack', bodyParser.json(), async (request, response) => {
     const { firstName, lastName, role, emailAddress, password } = request.body
@@ -55,6 +89,6 @@ app.post('/backpack', bodyParser.json(), async (request, response) => {
     response.status(201).send(newUser)
 })
 
-const server = app.listen(1337, () => { console.log('Listening on port 1337') })
+const server = app.listen(1377, () => { console.log('Listening on port 1377') })
 
 module.exports = server

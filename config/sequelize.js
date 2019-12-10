@@ -1,24 +1,23 @@
-
 module.exports = {
   development: {
-    username: 'user',
-    password: 'password',
-    database: 'backpack',
-    host: 'localhost',
-    dialect: 'mysql',
+    host: process.env.RDS_HOST,
+    database: process.env.RDS_NAME,
+    username: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    dialect: 'mysql'
   },
   test: {
-    username: 'user',
-    password: 'password',
-    database: 'backpack',
-    host: 'localhost',
-    dialect: 'mysql',
+    host: process.env.RDS_HOST,
+    database: process.env.RDS_NAME,
+    username: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    dialect: 'mysql'
   },
   production: {
-    username: 'user',
-    password: 'password',
-    database: 'backpack',
-    host: 'localhost',
-    dialect: 'mysql',
+    host: process.env.RDS_HOST,
+    database: process.env.RDS_NAME,
+    username: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    dialect: 'mysql'
   }
 }
