@@ -76,8 +76,19 @@ app.get('/studentclass/:id/', async (request, response) => {
         response.status(404).send('Please Enter a Student ID')
     }
 })
+app.use(bodyParser.json())
 
-app.post('/backpack', bodyParser.json(), async (request, response) => {
+app.post('/backpack/courses', async (request, response) => {
+    const { courseName, courseDescription } = request.body
+
+    if (!courseName || !courseDescription) {
+        response.status(400).send('All fields are required')
+    }
+    const newCourse = await models.courseCatalog.create({ courseName, courseDescription })
+    response.status(201).send(newCourse)
+})
+
+app.post('/backpack', async (request, response) => {
     const { firstName, lastName, role, emailAddress, password } = request.body
 
     if (!firstName || !lastName || !role || !emailAddress || !password) {
@@ -89,6 +100,6 @@ app.post('/backpack', bodyParser.json(), async (request, response) => {
     response.status(201).send(newUser)
 })
 
-const server = app.listen(1377, () => { console.log('Listening on port 1377') })
+const server = app.listen(1337, () => { console.log('Listening on port 1337') })
 
 module.exports = server
