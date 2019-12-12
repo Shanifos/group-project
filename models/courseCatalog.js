@@ -1,9 +1,15 @@
 const courseCatalog = (connection, Sequelize) => {
-    return connection.define('courseCatalog', {
-        id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
-        courseName: { type: Sequelize.STRING },
-        courseDescription: { type: Sequelize.STRING },
-    }, { paranoid: true })
+  return connection.define(
+    'courseCatalog',
+    {
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+      courseName: { type: Sequelize.STRING },
+      courseDescription: { type: Sequelize.STRING }
+
+    },
+    { freezeTableName: true },
+    { paranoid: true }
+  )
 }
 
 module.exports = courseCatalog

@@ -1,14 +1,14 @@
 {
   "name": "backpack",
   "version": "1.0.0",
-  "description": "",
+  "description": "Don't forget to create a branch with your name before committing",
   "main": "index.js",
   "scripts": {
-    "migrate:dev": "./node_modules/.bin/sequelize db:migrate --env development --config ./config/sequelize.js",
-    "server:dev": "./node_modules/.bin/nodemon index.js",
-    "migrate:prod": "./node_modules/.bin/sequelize db:migrate --env production --config ./config/sequelize.js",
+    "dev": "npm run migrate:dev && npm run server:dev",
+    "migrate:dev": "./node_modules/.bin/env-cmd sequelize db:migrate --env development --config ./config/sequelize.js",
+    "server:dev": "./node_modules/.bin/env-cmd nodemon index.js",
+    "migrate:prod": "sequelize db:migrate --env production --config ./config/sequelize.js",
     "server:prod": "node index.js",
-    "dev": "./node_modules/.bin/env-cmd npm run migrate:dev && npm run server:dev",
     "start": "npm run migrate:prod && npm run server:prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,5 +29,9 @@
   "devDependencies": {
     "env-cmd": "^10.0.1",
     "nodemon": "^2.0.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Shanifos/group-project/issues"
+  },
+  "homepage": "https://github.com/Shanifos/group-project#readme"
 }
