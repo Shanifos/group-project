@@ -14,14 +14,14 @@ async function getDashboard(request, response) {
 }
 
 async function getClasses(request, response) {
-    console.log(models.classes.id)
+    console.log(models.classTable.id)
 
 
-    [getClasses] = await models.classes.findOrCreate({
+    [getClasses] = await models.classTable.findOrCreate({
         where: { id: request.session.userId },
         defaults: {
-            schedule: models.classes.schedule,
-            courseName: models.classes.courseName,
+            schedule: models.classTable.schedule,
+            courseName: models.classTable.courseName,
         }
     })
 
