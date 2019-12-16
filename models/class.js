@@ -3,6 +3,7 @@ const classModels = (connection, Sequelize) => {
     'classTable',
     {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //pulled in from userTable, email will then be available by pulling in id
+      courseName: { type: Sequelize.STRING },
       courseId: {
         type: Sequelize.INTEGER,
         references: { model: 'courseCatalog', key: 'id' }

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-const UsersModel = require('./users')
+const usersModel = require('./users')
 const courseCatalogModel = require('./courseCatalog')
 const classModel = require('./class')
 const studentScheduleModel = require('./studentSchedule')
@@ -16,12 +16,12 @@ const environment = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
 const { host, database, username, password, dialect } = allConfigs[environment]
 
-const connection = new Sequelize(database, username, password, {
-  host,
-  dialect
+const connection = new Sequelize('backpack', 'user', 'password', {
+  host: 'localhost',
+  dialect: 'mysql'
 })
 
-const Users = UsersModel(connection, Sequelize)
+const users = usersModel(connection, Sequelize)
 
 const courseCatalog = courseCatalogModel(connection, Sequelize)
 
@@ -38,31 +38,31 @@ const assessment = assessmentModel(connection, Sequelize)
 const goals = goalsModel(connection, Sequelize)
 const studentSchedule = studentScheduleModel(connection, Sequelize)
 
-Users.hasMany(assessment, { foreignKey: 'userId' })
-Users.hasMany(assignments, { foreignKey: 'userId' })
-Users.hasMany(attendance, { foreignKey: 'userId' })
-Users.hasMany(classTable, { foreignKey: 'userId' })
-Users.hasMany(goals, { foreignKey: 'userId' })
-Users.hasMany(gradebook, { foreignKey: 'userId' })
-Users.hasMany(studentSchedule, { foreignKey: 'userId' })
+users.hasMany(assessment, { foreignKey: 'userId' })
+users.hasMany(assignments, { foreignKey: 'userId' })
+users.hasMany(attendance, { foreignKey: 'userId' })
+users.hasMany(classTable, { foreignKey: 'userId' })
+users.hasMany(goals, { foreignKey: 'userId' })
+users.hasMany(gradebook, { foreignKey: 'userId' })
+users.hasMany(studentSchedule, { foreignKey: 'userId' })
 courseCatalog.hasMany(classTable, { foreignKey: 'courseId' })
 studentSchedule.hasMany(classTable, { foreignKey: 'courseId' })
 
-goals.belongsTo(Users, { foreignKey: 'id' })
-studentSchedule.belongsTo(Users, { foreignKey: 'id' })
+goals.belongsTo(users, { foreignKey: 'id' })
+studentSchedule.belongsTo(users, { foreignKey: 'id' })
 classTable.belongsTo(studentSchedule, { foreignKey: 'courseId' })
-classTable.belongsTo(Users, { foreignKey: 'id' })
-gradebook.belongsTo(Users, { foreignKey: 'id' })
-assessment.belongsTo(Users, { foreignKey: 'id' })
-assignments.belongsTo(Users, { foreignKey: 'id' })
-attendance.belongsTo(Users, { foreignKey: 'id' })
+classTable.belongsTo(users, { foreignKey: 'id' })
+gradebook.belongsTo(users, { foreignKey: 'id' })
+assessment.belongsTo(users, { foreignKey: 'id' })
+assignments.belongsTo(users, { foreignKey: 'id' })
+attendance.belongsTo(users, { foreignKey: 'id' })
 classTable.belongsTo(courseCatalog, { foreignKey: 'id' })
 
 
 
 
 module.exports = {
-  Users,
+  users,
   courseCatalog,
   classTable,
   assignments,

@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    host: process.env.RDS_HOST,
-    database: process.env.RDS_NAME,
-    username: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
+    host: 'localhost',
+    database: 'backpack',
+    username: 'user',
+    password: 'password',
     dialect: 'mysql'
   },
   test: {
