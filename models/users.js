@@ -1,5 +1,5 @@
-const Users = (connection, Sequelize) => {
-    return connection.define('userTables', {
+const users = (connection, Sequelize) => {
+    return connection.define('users', {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
         firstName: { type: Sequelize.STRING },
         lastName: { type: Sequelize.STRING },
@@ -10,4 +10,4 @@ const Users = (connection, Sequelize) => {
 }
 
 
-module.exports = Users
+module.exports = users

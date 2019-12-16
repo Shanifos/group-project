@@ -3,9 +3,7 @@ const courseCatalog = (connection, Sequelize) => {
     'courseCatalog',
     {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-      courseName: { type: Sequelize.STRING },
       courseDescription: { type: Sequelize.STRING }
-
     },
     { freezeTableName: true },
     { paranoid: true }
