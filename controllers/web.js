@@ -14,34 +14,28 @@ async function getDashboard(request, response) {
 }
 
 async function getClasses(request, response) {
-    console.log(models.classes.id)
-
-
-    [getClasses] = await models.classes.findOrCreate({
+    request.session.userId = 1
+    const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
-        defaults: {
-            schedule: models.classes.schedule,
-            courseName: models.classes.courseName,
-        }
+        include: { model: models.classTables },
     })
+    return usersClasses
 
-    let classesId = []
-    [newClass] = await models.users.findOrCreate({
-        where: { id: request.session.userId }
-    })
-    classesId.push(newClass.id)
-    getClasses.setclasses(classesId)
-    await newClass.save()
-
-
-    console.log(getClasses)
-    //request.session.courseName = class.courseName
-    //request.session.schedule = class.schedule
-    response.render('classes')
+        ? response.render('classes', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName }) //courseName: usersClasses.classTables.map(toJSON) })
+        : response.sendStatus(404)
 }
 
 async function getGrades(request, response) {
-    return response.render('grades')
+    request.session.userId = 1
+    const usersGrades = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.gradebook }
+    })
+
+    return usersGrades
+        ? response.send(usersGrades)
+        //? response.render('gradebook')
+        : response.sendStatus(404)
 }
 
 async function getAssignments(request, response) {

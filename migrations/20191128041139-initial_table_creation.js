@@ -11,8 +11,8 @@ module.exports = {
       role: { type: Sequelize.STRING, },
       emailAddress: { type: Sequelize.STRING, },
       password: { type: Sequelize.STRING, },
-      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
-      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
       deletedAt: { type: Sequelize.DATE },
     })
 
@@ -27,8 +27,6 @@ module.exports = {
 
     await queryInterface.createTable('classTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-      userId: { type: Sequelize.INTEGER }, //pulled in from userTable, email will then be available by pulling in id
-      courseId: { type: Sequelize.INTEGER },
       schedule: { type: Sequelize.STRING },
       courseName: { type: Sequelize.STRING },
       semester: { type: Sequelize.STRING },
@@ -95,6 +93,14 @@ module.exports = {
 
     })
 
+    await queryInterface.createTable('usersClasses', {
+      userId: { type: Sequelize.INTEGER, reference: { model: 'users', key: 'id' } },
+      classId: { type: Sequelize.INTEGER, reference: { model: 'classTables', key: 'id' } },
+      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      deletedAt: { type: Sequelize.DATE },
+    })
+
     return queryInterface.createTable('goalsTable', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       userId: { type: Sequelize.INTEGER },//somehow pulled in from userTable
@@ -114,7 +120,12 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('users')
     await queryInterface.dropTable('courseCatalog')
-    await queryInterface.dropTable('classTable')
-    return queryInterface.dropTable('rosterTable')
+    await queryInterface.dropTable('classTables')
+    await queryInterface.dropTable('assignmentsTables')
+    await queryInterface.dropTable('gradebookTables')
+    await queryInterface.dropTable('assessmentTables')
+    await queryInterface.dropTable('studentSchedules')
+    await queryInterface.dropTable('usersClasses')
+    return queryInterface.dropTable('goalsTable')
   }
 }
