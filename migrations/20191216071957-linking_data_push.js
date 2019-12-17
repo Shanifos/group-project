@@ -10,10 +10,15 @@ module.exports = {
       { classId: 3, userId: 3 },
       { classId: 3, userId: 1 },
     ])
+    await queryInterface.bulkInsert('usersAttendance', [
+      { classId: 1, userId: 2 },
+      { classId: 1, userId: 3 },
+
+    ])
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
-  
+
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
@@ -24,7 +29,7 @@ module.exports = {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
-  
+
       Example:
       return queryInterface.dropTable('users');
     */

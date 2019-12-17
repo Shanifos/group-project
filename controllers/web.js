@@ -19,21 +19,6 @@ async function getClasses(request, response) {
     const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
         include: { model: models.classTables },
-    }),
-
-
-        [getClasses] = await models.classTable.findOrCreate({
-            where: { id: request.session.userId },
-            defaults: {
-                schedule: models.classTable.schedule,
-                courseName: models.classTable.courseName,
-            }
-        })
-
-    let classesId = []
-    [newClass] = await models.users.findOrCreate({
-        where: { id: request.session.userId }
-
     })
     return usersClasses
 
@@ -60,6 +45,14 @@ async function getAssignments(request, response) {
 
 async function registerForClasses(request, response) {
     return response.render('registerForClasses')
+}
+async function getAttendance(request, response) {
+    request.session.userId = 1
+    const attendance = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.attendance }
+    })
+    response.send(attendance)
 }
 
 async function getAssignmentsByUser(request, response) {
@@ -92,5 +85,6 @@ module.exports = {
     getAssignments,
     registerForClasses,
     getAssignmentsByUser,
-    getAssignmentsByClass
+    getAssignmentsByClass,
+    getAttendance
 }

@@ -14,15 +14,17 @@ const userAssignmentsModel = require('./userAssignments')
 const classAssignmentsModel = require('./classAssignments')
 
 const allConfigs = require('../config/sequelize')
-
 const environment = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
 const { host, database, username, password, dialect } = allConfigs[environment]
-const config = allConfigs[environment]
-const connection = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect
+
+const connection = new Sequelize(database, username, password, {
+  host,
+  dialect
 })
+
+
+
 
 const users = usersModel(connection, Sequelize)
 const courseCatalog = courseCatalogModel(connection, Sequelize)
@@ -46,6 +48,10 @@ users.belongsToMany(assignments, { through: 'userAssignment', foreignKey: 'userI
 assignments.belongsToMany(users, { through: 'userAssignment', foreignKey: 'assignmentId' })
 classTables.belongsToMany(assignments, { through: 'classAssignments', foreignKey: 'classId' })
 assignments.belongsToMany(classTables, { through: 'classAssignments', foreignKey: 'assignmentId' })
+users.belongsToMany(attendance, { through: 'usersAttendance', foreignKey: 'userId' })
+attendance.belongsToMany(users, { through: 'usersAttendance', foreignKey: 'classId' })
+
+
 
 
 

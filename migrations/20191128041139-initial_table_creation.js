@@ -99,6 +99,14 @@ module.exports = {
       deletedAt: { type: Sequelize.DATE },
     })
 
+    await queryInterface.createTable('usersAttendance', {
+      userId: { type: Sequelize.INTEGER, reference: { model: 'users', key: 'id' } },
+      classId: { type: Sequelize.INTEGER, reference: { model: 'usersAttendance', key: 'id' } },
+      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      deletedAt: { type: Sequelize.DATE }
+    })
+
     return queryInterface.createTable('goalsTable', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       userId: { type: Sequelize.INTEGER },//somehow pulled in from userTable
