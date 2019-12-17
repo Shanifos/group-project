@@ -14,10 +14,26 @@ async function getDashboard(request, response) {
 }
 
 async function getClasses(request, response) {
+
     request.session.userId = 1
     const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
         include: { model: models.classTables },
+    console.log(models.classTable.id)
+
+
+    [getClasses] = await models.classTable.findOrCreate({
+        where: { id: request.session.userId },
+        defaults: {
+            schedule: models.classTable.schedule,
+            courseName: models.classTable.courseName,
+        }
+    })
+
+    let classesId = []
+    [newClass] = await models.users.findOrCreate({
+        where: { id: request.session.userId }
+
     })
     return usersClasses
 
