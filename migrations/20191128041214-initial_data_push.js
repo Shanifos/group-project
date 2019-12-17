@@ -12,7 +12,15 @@ module.exports = {
       { firstName: 'Mary', lastName: 'Smith', Role: 'Admin', emailAddress: 'MarySmith@sjcme.edu', password: hash },
       { firstName: 'Colin', lastName: 'Frey', Role: 'Student', emailAddress: 'ColinFrey@sjcme.edu', password: hash }
     ])
-
+    await queryInterface.bulkInsert('attendanceTables',
+      [
+        {
+          userId: 2, classId: 2, daysAbsent: 2, daysAttended: 2
+        },
+        {
+          userId: 1, classId: 3, daysAbsent: 10, daysAttended: 3
+        }
+      ])
 
     return queryInterface.bulkInsert('classTables', [
       { courseName: 'Javascript', schedule: 'Mon/Fri 9AM-12PM', },
@@ -32,7 +40,7 @@ module.exports = {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
- 
+
       Example:
       return queryInterface.dropTable('users');
     */

@@ -12,15 +12,17 @@ const goalsModel = require('./goals')
 const usersClassesModel = require('./usersClasses')
 
 const allConfigs = require('../config/sequelize')
-
 const environment = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
 const { host, database, username, password, dialect } = allConfigs[environment]
-
-const connection = new Sequelize('backpack', 'user', 'password', {
-  host: 'localhost',
-  dialect: 'mysql'
+console.log(host)
+const connection = new Sequelize(database, username, password, {
+  host,
+  dialect
 })
+
+
+
 
 const users = usersModel(connection, Sequelize)
 const courseCatalog = courseCatalogModel(connection, Sequelize)
@@ -37,6 +39,8 @@ users.belongsToMany(classTables, { through: 'usersClasses', foreignKey: 'userId'
 classTables.belongsToMany(users, { through: 'usersClasses', foreignKey: 'classId' })
 users.belongsToMany(gradebook, { through: 'usersGradebook', foreignKey: 'userId' })
 gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradebookId' })
+users.belongsToMany(attendance, { through: 'usersAttendance', foreignKey: 'userId' })
+attendance.belongsToMany(users, { through: 'usersAttendance', foreignKey: 'classId' })
 
 
 
