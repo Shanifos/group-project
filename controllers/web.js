@@ -1,4 +1,5 @@
 const models = require('../models')
+const { cleanClasses } = require('../helpers/cleaners')
 
 async function getIndex(request, response) {
     return response.render('index')
@@ -20,9 +21,9 @@ async function getClasses(request, response) {
         where: { id: request.session.userId },
         include: { model: models.classTables },
     })
-    return usersClasses
 
-        ? response.render('classes', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName }) //courseName: usersClasses.classTables.map(toJSON) })
+    return usersClasses
+        ? response.render('classes', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName, classes: usersClasses.classTables.map(cleanClasses) })
         : response.sendStatus(404)
 }
 
@@ -34,7 +35,7 @@ async function getGrades(request, response) {
     })
 
     return usersGrades
-        ? response.send(usersGrades)
+        ? response.render('grades')
         //? response.render('gradebook')
         : response.sendStatus(404)
 }
@@ -42,6 +43,8 @@ async function getGrades(request, response) {
 async function getAssignments(request, response) {
     return response.render('assignments')
 }
+
+
 
 async function registerForClasses(request, response) {
     return response.render('registerForClasses')

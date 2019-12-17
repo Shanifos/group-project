@@ -26,6 +26,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('usersClasses')
+    await queryInterface.bulkDelete('usersGradebook')
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

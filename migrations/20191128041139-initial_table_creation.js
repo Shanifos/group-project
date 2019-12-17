@@ -60,8 +60,6 @@ module.exports = {
 
     await queryInterface.createTable('gradebookTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
-      userId: { type: Sequelize.INTEGER },
-      classId: { type: Sequelize.INTEGER }, //from class table
       assignmentGrade: { type: Sequelize.INTEGER },
       average: { type: Sequelize.INTEGER },
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
@@ -92,8 +90,16 @@ module.exports = {
     })
 
     await queryInterface.createTable('usersClasses', {
-      userId: { type: Sequelize.INTEGER, reference: { model: 'users', key: 'id' } },
-      classId: { type: Sequelize.INTEGER, reference: { model: 'classTables', key: 'id' } },
+      userId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'users', key: 'id' } },
+      classId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'classTables', key: 'id' } },
+      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      deletedAt: { type: Sequelize.DATE },
+    })
+
+    await queryInterface.createTable('usersGradebook', {
+      gradeId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'gradebook', key: 'id' } },
+      userId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'users', key: 'id' } },
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
       updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
       deletedAt: { type: Sequelize.DATE },
@@ -132,6 +138,7 @@ module.exports = {
     await queryInterface.dropTable('assessmentTables')
     await queryInterface.dropTable('studentSchedules')
     await queryInterface.dropTable('usersClasses')
+    await queryInterface.dropTable('usersGradebook')
     return queryInterface.dropTable('goalsTable')
   }
 }
