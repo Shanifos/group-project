@@ -1,9 +1,9 @@
-const goals = (connection, Sequelize) => {
+const goals = (connection, Sequelize, users) => {
     return connection.define('goalsTable', {
         userID: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'users',
+                model: users,
                 key: 'id'
             }
         }, //somehow pulled in from userTable

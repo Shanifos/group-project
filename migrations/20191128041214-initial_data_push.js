@@ -14,17 +14,17 @@ module.exports = {
     ])
 
 
-    await queryInterface.bulkInsert('classTables', [
+    return queryInterface.bulkInsert('classTables', [
       { courseName: 'Javascript', schedule: 'Mon/Fri 9AM-12PM', },
       { courseName: 'SQL', schedule: 'Tues/Thurs 9AM-12PM', }
     ])
 
-    return queryInterface.bulkInsert('studentSchedules', [
+    /*return queryInterface.bulkInsert('studentSchedules', [
       {
         userId: Sequelize.literal('(select id from users where role like "student")'),
         courseId: 1
       },
-    ])
+    ])*/
   },
 
 

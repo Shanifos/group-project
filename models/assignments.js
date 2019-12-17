@@ -1,9 +1,9 @@
-const assignments = (connection, Sequelize) => {
+const assignments = (connection, Sequelize, users) => {
     return connection.define('assignmentsTable', {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
         userId: {
             type: Sequelize.INTEGER, reference: {
-                model: 'users', key: 'id'
+                model: users, key: 'id'
             }
         },
         classId: { type: Sequelize.INTEGER }, //from class table

@@ -1,9 +1,9 @@
-const gradebook = (connection, Sequelize) => {
+const gradebook = (connection, Sequelize, users) => {
     return connection.define('gradebookTable', {
         userID: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'users',
+                model: users,
                 key: 'id'
             }
         }, //somehow pulled in from userTable

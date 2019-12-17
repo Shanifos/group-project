@@ -1,10 +1,10 @@
-const assessment = (connection, Sequelize) => {
+const assessment = (connection, Sequelize, users) => {
     return connection.define('assessmentTable', {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
         userID: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'users',
+                model: users,
                 key: 'id'
             }
         },
