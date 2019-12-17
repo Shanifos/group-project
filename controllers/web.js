@@ -15,7 +15,8 @@ async function getDashboard(request, response) {
 }
 
 async function getClasses(request, response) {
-    request.session.userId = 1 //so i don't have to log in every time
+
+    request.session.userId = 1
     const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
         include: { model: models.classTables },
@@ -48,6 +49,36 @@ async function getAssignments(request, response) {
 async function registerForClasses(request, response) {
     return response.render('registerForClasses')
 }
+async function getAttendance(request, response) {
+    request.session.userId = 1
+    const attendance = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.attendance }
+    })
+    response.send(attendance)
+}
+
+async function getAssignmentsByUser(request, response) {
+    request.session.userId = 1
+    const userAssignments = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.assignments }
+    })
+    return userAssignments
+        ? response.send(userAssignments)
+        : response.sendStatus(404)
+}
+
+async function getAssignmentsByClass(request, response) {
+    request.session.classId = 1
+    const userAssignments = await models.classTables.findOne({
+        where: { id: request.session.classId },
+        include: { model: models.assignments }
+    })
+    return userAssignments
+        ? response.send(userAssignments)
+        : response.sendStatus(404)
+}
 
 module.exports = {
     getIndex,
@@ -56,4 +87,7 @@ module.exports = {
     getGrades,
     getAssignments,
     registerForClasses,
+    getAssignmentsByUser,
+    getAssignmentsByClass,
+    getAttendance
 }

@@ -37,12 +37,10 @@ module.exports = {
     })
 
     await queryInterface.createTable('assignmentsTables', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
-      userId: { type: Sequelize.INTEGER },
-      classId: { type: Sequelize.INTEGER }, //from class table
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       assignmentName: { type: Sequelize.STRING },
       assignmentType: { type: Sequelize.STRING },
-      dueDate: { type: Sequelize.INTEGER },
+      dueDate: { type: Sequelize.STRING },
       description: { type: Sequelize.STRING },
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
       updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
@@ -105,6 +103,14 @@ module.exports = {
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
       updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
       deletedAt: { type: Sequelize.DATE },
+    })
+
+    await queryInterface.createTable('usersAttendance', {
+      userId: { type: Sequelize.INTEGER, reference: { model: 'users', key: 'id' } },
+      classId: { type: Sequelize.INTEGER, reference: { model: 'usersAttendance', key: 'id' } },
+      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      deletedAt: { type: Sequelize.DATE }
     })
 
     return queryInterface.createTable('goalsTable', {

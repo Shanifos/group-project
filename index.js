@@ -8,7 +8,7 @@ const Sequelize = require('sequelize')
 const models = require('./models')
 const path = require('path')
 const { userLogin } = require('./controllers/auth')
-const { getIndex, getDashboard, getClasses, getGrades, getAssignments, registerForClasses } = require('./controllers/web')
+const { getIndex, getDashboard, getClasses, getGrades, getAssignments, registerForClasses, getAssignmentsByUser, getAssignmentsByClass, getAttendance } = require('./controllers/web')
 
 const app = express()
 
@@ -38,6 +38,9 @@ app.get('/classes', getClasses)
 app.get('/grades', getGrades)
 app.get('/assignments', getAssignments)
 app.get('/registerForClasses', registerForClasses)
+app.get('/userAssignments', getAssignmentsByUser)
+app.get('/classAssignments', getAssignmentsByClass)
+app.get('/attendance', getAttendance)
 
 
 const server = app.listen(1337, () => { console.log('Listening on port 1337') })
