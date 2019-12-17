@@ -1,15 +1,9 @@
 const assignments = (connection, Sequelize, users) => {
     return connection.define('assignmentsTable', {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-        userId: {
-            type: Sequelize.INTEGER, reference: {
-                model: users, key: 'id'
-            }
-        },
-        classId: { type: Sequelize.INTEGER }, //from class table
         assignmentName: { type: Sequelize.STRING },
         assignmentType: { type: Sequelize.STRING },
-        dueDate: { type: Sequelize.INTEGER },
+        dueDate: { type: Sequelize.STRING },
         description: { type: Sequelize.STRING },
     }, { paranoid: true })
 }

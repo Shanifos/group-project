@@ -37,12 +37,10 @@ module.exports = {
     })
 
     await queryInterface.createTable('assignmentsTables', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
-      userId: { type: Sequelize.INTEGER },
-      classId: { type: Sequelize.INTEGER }, //from class table
+      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       assignmentName: { type: Sequelize.STRING },
       assignmentType: { type: Sequelize.STRING },
-      dueDate: { type: Sequelize.INTEGER },
+      dueDate: { type: Sequelize.STRING },
       description: { type: Sequelize.STRING },
       createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
       updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
