@@ -19,10 +19,9 @@ async function getClasses(request, response) {
     const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
         include: { model: models.classTables },
-    console.log(models.classTable.id)
+    })
 
-
-    [getClasses] = await models.classTable.findOrCreate({
+    const [getClasses] = await models.classTable.findOrCreate({
         where: { id: request.session.userId },
         defaults: {
             schedule: models.classTable.schedule,
@@ -61,6 +60,14 @@ async function getAssignments(request, response) {
 async function registerForClasses(request, response) {
     return response.render('registerForClasses')
 }
+async function getAttendance(request, response) {
+    request.session.userId = 1
+    const attendance = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.attendance }
+    })
+    response.send(attendance)
+}
 
 module.exports = {
     getIndex,
@@ -69,4 +76,5 @@ module.exports = {
     getGrades,
     getAssignments,
     registerForClasses,
+    getAttendance
 }
