@@ -10,16 +10,16 @@ const gradebookModel = require('./gradebook')
 const assessmentModel = require('./assessment')
 const goalsModel = require('./goals')
 const usersClassesModel = require('./usersClasses')
+const usersGradebookModel = require('./gradebook')
 
 const allConfigs = require('../config/sequelize')
 
 const environment = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
-
 const { host, database, username, password, dialect } = allConfigs[environment]
 
-const connection = new Sequelize('backpack', 'user', 'password', {
-  host: 'localhost',
-  dialect: 'mysql'
+const connection = new Sequelize(database, username, password, {
+  host: host,
+  dialect: dialect
 })
 
 const users = usersModel(connection, Sequelize)
@@ -32,11 +32,12 @@ const assessment = assessmentModel(connection, Sequelize)
 const goals = goalsModel(connection, Sequelize)
 const studentSchedule = studentScheduleModel(connection, Sequelize)
 const usersClasses = usersClassesModel(connection, Sequelize, classTables, users)
+const usersGradebook = usersGradebookModel(connection, Sequelize, gradebook, users)
 
 users.belongsToMany(classTables, { through: 'usersClasses', foreignKey: 'userId' })
 classTables.belongsToMany(users, { through: 'usersClasses', foreignKey: 'classId' })
 users.belongsToMany(gradebook, { through: 'usersGradebook', foreignKey: 'userId' })
-gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradebookId' })
+gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradeId' })
 
 
 
@@ -53,5 +54,5 @@ module.exports = {
   goals,
   studentSchedule,
   usersClasses,
-  //usersGradebook
+  usersGradebook
 }

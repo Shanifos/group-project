@@ -13,7 +13,6 @@ module.exports = {
       { firstName: 'Colin', lastName: 'Frey', Role: 'Student', emailAddress: 'ColinFrey@sjcme.edu', password: hash }
     ])
 
-
     return queryInterface.bulkInsert('classTables', [
       { courseName: 'Javascript', schedule: 'Mon/Fri 9AM-12PM', },
       { courseName: 'SQL', schedule: 'Tues/Thurs 9AM-12PM', }
