@@ -10,7 +10,7 @@ module.exports = {
     return queryInterface.createTable('users', { id: Sequelize.INTEGER });
   */
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('userAssignment', {
+    await queryInterface.createTable('userAssignments', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       userId: { type: Sequelize.INTEGER, reference: { model: 'users', key: 'id' } },
       assignmentId: { type: Sequelize.INTEGER, reference: { model: 'assignments', key: 'id' } },
@@ -21,6 +21,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('userAssignment')
+    await queryInterface.bulkDelete('userAssignments')
   }
 };

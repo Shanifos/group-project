@@ -1,4 +1,4 @@
-const assignments = (connection, Sequelize, users) => {
+const assignments = (connection, Sequelize) => {
     return connection.define('assignmentsTable', {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
         assignmentName: { type: Sequelize.STRING },
@@ -7,5 +7,4 @@ const assignments = (connection, Sequelize, users) => {
         description: { type: Sequelize.STRING },
     }, { paranoid: true })
 }
-
 module.exports = assignments

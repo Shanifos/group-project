@@ -4,6 +4,16 @@ const cleanClasses = (classTables) => {
         schedule: classTables.schedule,
     }
 }
+
+const cleanAssignments = (assignments) => {
+    return {
+        assignmentName: assignments.assignmentName,
+        assignmentType: assignments.assignmentType,
+        dueDate: assignments.dueDate,
+        description: assignments.description
+    }
+}
 module.exports = {
-    cleanClasses
+    cleanClasses,
+    cleanAssignments
 }

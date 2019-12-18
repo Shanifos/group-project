@@ -9,7 +9,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    await queryInterface.bulkInsert('userAssignment', [
+    await queryInterface.bulkInsert('userAssignments', [
       { userId: 1, assignmentId: 1 },
       { userId: 1, assignmentId: 2 },
       { userId: 1, assignmentId: 3 },
@@ -41,6 +41,6 @@ module.exports = {
     ])
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('userAssignment')
+    await queryInterface.bulkDelete('userAssignments')
   }
 };

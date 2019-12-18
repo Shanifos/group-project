@@ -158,61 +158,61 @@ head
                 li.nav-item.sidebar-actions
         // partial
         .main-panel
-            .col-lg-6.grid-margin.stretch-card
-                .card
-                    .card-body
-                        h4.card-title Class Registration
-                        p.card-description
-                            // Add class <code>.table</code>
-                        table.table
-                            thead
-                                tr
-                                    th Class
-                                    th Schedule
-                                    th Semester
-                                    th Start Date
-                                    th End Date
-                                    th Spots Available
-                            tbody
-                                tr
-                                    td Javascript
-                                    td Mon/Fri 9AM-12PM
-                                    td Fall
-                                    td 8/28/2019
-                                    td 12/16/2019
-                                    td 10/30
-                                    td
-                                        label.badge.badge-success Open
-                                tr
-                                    td SQL
-                                    td Tues/Thurs 9AM-12PM
-                                    td Fall
-                                    td 8/28/2019
-                                    td 12/16/2019
-                                    td 3/30
-                                    td
-                                        label.badge.badge-warning Almost Full
-                                tr
-                                    td HTML/CSS
-                                    td Fri 9AM-3PM
-                                    td Fall
-                                    td 8/28/2019
-                                    td 12/16/2019
-                                    td 0/30
-                                    td
-                                        label.badge.badge-danger Closed
+            .content-wrapper
+                .page-header
+                .col-lg-12.grid-margin.stretch-card
+                    .card
+                        .card-body
+                            table.col-lg-12.table.table-striped
+                                thead
+                                    tr
+                                        th Class
+                                        th Schedule
+                                        th Semester
+                                        th Start Date
+                                        th End Date
+                                        th Spots Available
+                                tbody
+                                    tr
+                                        td Javascript
+                                        td Mon/Fri 9AM-12PM
+                                        td Fall
+                                        td 8/28/2019
+                                        td 12/16/2019
+                                        td 10/30
+                                        td
+                                            label.badge.badge-success Open
+                                    tr
+                                        td SQL
+                                        td Tues/Thurs 9AM-12PM
+                                        td Fall
+                                        td 8/28/2019
+                                        td 12/16/2019
+                                        td 3/30
+                                        td
+                                            label.badge.badge-warning Almost Full
+                                    tr
+                                        td HTML/CSS
+                                        td Fri 9AM-3PM
+                                        td Fall
+                                        td 8/28/2019
+                                        td 12/16/2019
+                                        td 0/30
+                                        td
+                                            label.badge.badge-danger Closed
+
+    // content-wrapper ends
+    // partial:../../partials/_footer.html
+    footer.footer1
+        .d-sm-flex.justify-content-center.justify-content-sm-between
+            span.text-muted.text-center.text-sm-left.d-block.d-sm-inline-block
+                | Copyright &copy; 2019
+                |
+            span.float-none.float-sm-right.d-block.mt-1.mt-sm-0.text-center
+                | Made by SJCME Fall 2019 Cohort 
             // partial
-            // partial:partials/_footer.html
-footer.footer1
-    .d-sm-flex.justify-content-center.justify-content-sm-between
-        span.text-muted.text-center.text-sm-left.d-block.d-sm-inline-block
-            | Copyright &copy; 2019
-            |
-        span.float-none.float-sm-right.d-block.mt-1.mt-sm-0.text-center
-            | Made by SJCME Fall 2019 Cohort 
-// partial
-// main-panel ends
-// page-body-wrapper ends
+            // main-panel ends
+            // page-body-wrapper ends
 // container-scroller
 // plugins:js
 script(src='assets/vendors/js/vendor.bundle.base.js')
