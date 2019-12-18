@@ -59,13 +59,14 @@ module.exports = {
     })
 
     await queryInterface.createTable('gradebookTables', {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
+      userId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'users', key: 'id' } },
+      assignmentId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: 'assignments', key: 'id' } },
       assignmentGrade: { type: Sequelize.INTEGER },
-      average: { type: Sequelize.INTEGER },
-      createdAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
-      updatedAT: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
+      createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), },
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), },
       deletedAt: { type: Sequelize.DATE },
     })
+
 
     await queryInterface.createTable('assessmentTables', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
