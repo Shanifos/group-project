@@ -45,10 +45,15 @@ const classAssignments = classAssignmentsModel(connection, Sequelize, classTable
 
 users.belongsToMany(classTables, { through: 'usersClasses', foreignKey: 'userId' })
 classTables.belongsToMany(users, { through: 'usersClasses', foreignKey: 'classId' })
-//users.belongsToMany(gradebook, { through: 'usersGradebook', foreignKey: 'userId' })
-//gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradeId' })
+
 users.belongsToMany(assignments, { through: 'userAssignment', foreignKey: 'userId' })
 assignments.belongsToMany(users, { through: 'userAssignment', foreignKey: 'assignmentId' })
+
+users.belongsToMany(gradebook, { through: 'usersGradebook', foreignKey: 'userId' })
+gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradeId' })
+users.belongsToMany(assignments, { through: 'userAssignments', foreignKey: 'userId' })
+assignments.belongsToMany(users, { through: 'userAssignments', foreignKey: 'assignmentId' })
+
 classTables.belongsToMany(assignments, { through: 'classAssignments', foreignKey: 'classId' })
 assignments.belongsToMany(classTables, { through: 'classAssignments', foreignKey: 'assignmentId' })
 users.belongsToMany(attendance, { through: 'usersAttendance', foreignKey: 'userId' })

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migrate:dev": "./node_modules/.bin/sequelize db:migrate --env development --config ./config/sequelize.js",
-    "server:dev": "./node_modules/.bin/nodemon index.js",
+    "migrate:dev": "./node_modules/.bin/env-cmd sequelize db:migrate --env development --config ./config/sequelize.js",
+    "server:dev": "./node_modules/.bin/env-cmd nodemon index.js",
     "migrate:prod": "./node_modules/.bin/sequelize db:migrate --env production --config ./config/sequelize.js",
     "server:prod": "node index.js",
     "dev": "./node_modules/.bin/env-cmd npm run migrate:dev && npm run server:dev",

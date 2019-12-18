@@ -15,7 +15,6 @@ module.exports = {
       { assignmentName: "Order-Book", assignmentType: "Portfolio Site", dueDate: "10 / 1 / 2019", description: "Test", },
       { assignmentName: "Super-hero-api", assignmentType: "Homework", dueDate: "10 / 1 / 2019", description: "Test", },
       { assignmentName: "Final Exam", assignmentType: "Final Exam", dueDate: "10 / 1 / 2019", description: "Test", },
-
       /*
         Add altering commands here.
         Return a promise to correctly handle asynchronicity.
