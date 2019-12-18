@@ -64,9 +64,9 @@ async function registerForClasses(request, response) {
 }
 
 async function getAttendance(request, response) {
-    request.session.userId = 1
+    request.session.userId = 3
     const attendance = await models.users.findOne({
-        where: { id: request.session.userId },
+        where: { id: request.session.userId, role: 'student' },
         include: { model: models.attendance }
     })
     response.send(attendance)
