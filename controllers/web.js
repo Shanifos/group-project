@@ -28,17 +28,30 @@ async function getClasses(request, response) {
 }
 
 async function getGrades(request, response) {
-    request.session.userId = 1
-    const usersGrades = await models.users.findOne({
+    request.session.userId = 4
+    const usersGrades = await models.users.findAll({
         where: { id: request.session.userId },
-        include: { model: models.gradebook }
+        include: { model: models.assignments }
     })
 
     return usersGrades
-        ? response.render('grades', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName })
-        //? response.render('gradebook')
+
+        ? response.send(usersGrades)
+
         : response.sendStatus(404)
 }
+// below we try to get grades by class so a teacher can see a list of students, assignments and grades for each.  
+/*async function getGradesByClass(request, response) {
+    request.session.userId = 1
+    const classGrades = await models.classTables.findOne({
+        where: { id: request.sessions.userId },
+        include: { model: models.assignments }
+    })
+
+    return classGrades
+        ? response.send(classGrades)
+        : response.sendStatus(404)
+}*/
 
 async function getAssignments(request, response) {
     return response.render('assignments')
@@ -85,12 +98,13 @@ async function getAssignmentsByUser(request, response) {
 
 async function getAssignmentsByClass(request, response) {
     request.session.classId = 1
-    const userAssignments = await models.classTables.findOne({
+    const userAssignment = await models.classTables.findOne({
         where: { id: request.session.classId },
         include: { model: models.assignments }
     })
     return userAssignments
         ? response.render('assignments')
+
         : response.sendStatus(404)
 }
 

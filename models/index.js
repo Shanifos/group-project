@@ -14,6 +14,8 @@ const usersGradebookModel = require('./gradebook')
 const userAssignmentsModel = require('./userAssignments')
 const classAssignmentsModel = require('./classAssignments')
 
+
+
 const allConfigs = require('../config/sequelize')
 const environment = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 const { host, database, username, password, dialect } = allConfigs[environment]
@@ -31,7 +33,7 @@ const courseCatalog = courseCatalogModel(connection, Sequelize)
 const classTables = classModel(connection, Sequelize)
 const assignments = assignmentModel(connection, Sequelize)
 const attendance = attendanceModel(connection, Sequelize)
-const gradebook = gradebookModel(connection, Sequelize)
+const gradebook = gradebookModel(connection, Sequelize, users, assignments)
 const assessment = assessmentModel(connection, Sequelize)
 const goals = goalsModel(connection, Sequelize)
 const studentSchedule = studentScheduleModel(connection, Sequelize)
@@ -43,15 +45,21 @@ const classAssignments = classAssignmentsModel(connection, Sequelize, classTable
 
 users.belongsToMany(classTables, { through: 'usersClasses', foreignKey: 'userId' })
 classTables.belongsToMany(users, { through: 'usersClasses', foreignKey: 'classId' })
+
+users.belongsToMany(assignments, { through: 'userAssignment', foreignKey: 'userId' })
+assignments.belongsToMany(users, { through: 'userAssignment', foreignKey: 'assignmentId' })
+
 users.belongsToMany(gradebook, { through: 'usersGradebook', foreignKey: 'userId' })
 gradebook.belongsToMany(users, { through: 'usersGradebook', foreignKey: 'gradeId' })
 users.belongsToMany(assignments, { through: 'userAssignments', foreignKey: 'userId' })
 assignments.belongsToMany(users, { through: 'userAssignments', foreignKey: 'assignmentId' })
+
 classTables.belongsToMany(assignments, { through: 'classAssignments', foreignKey: 'classId' })
 assignments.belongsToMany(classTables, { through: 'classAssignments', foreignKey: 'assignmentId' })
 users.belongsToMany(attendance, { through: 'usersAttendance', foreignKey: 'userId' })
 attendance.belongsToMany(users, { through: 'usersAttendance', foreignKey: 'classId' })
-
+users.belongsToMany(assignments, { through: 'gradebookTables', foreignKey: 'userId' })
+assignments.belongsToMany(users, { through: 'gradebookTables', foreignKey: 'assignmentId' })
 
 
 

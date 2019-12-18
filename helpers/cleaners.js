@@ -5,6 +5,7 @@ const cleanClasses = (classTables) => {
     }
 }
 
+
 const cleanAssignments = (assignments) => {
     return {
         assignmentName: assignments.assignmentName,
@@ -13,6 +14,7 @@ const cleanAssignments = (assignments) => {
         description: assignments.description
     }
 }
+
 module.exports = {
     cleanClasses,
     cleanAssignments

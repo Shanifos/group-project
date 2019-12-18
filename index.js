@@ -42,6 +42,7 @@ app.get('/classAssignments', getAssignmentsByClass)
 app.get('/attendance', getAttendance)
 
 
+
 const server = app.listen(1337, () => { console.log('Listening on port 1337') })
 
 module.exports = server
