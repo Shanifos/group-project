@@ -141,17 +141,6 @@ head
             span.menu-title Dashboard
             i.mdi.mdi-home.menu-icon
         li.nav-item
-          a.nav-link(data-toggle='collapse' href='#ui-basic' aria-expanded='false' aria-controls='ui-basic')
-            span.menu-title Basic UI Elements
-            i.menu-arrow
-            i.mdi.mdi-crosshairs-gps.menu-icon
-          #ui-basic.collapse
-            ul.nav.flex-column.sub-menu
-              li.nav-item
-                a.nav-link(href='pages/ui-features/buttons.html') Buttons
-              li.nav-item
-                a.nav-link(href='pages/ui-features/typography.html') Typography
-        li.nav-item
           a.nav-link(href='/classes')
             span.menu-title My Classes
             i.mdi.mdi-contacts.menu-icon
@@ -163,40 +152,10 @@ head
           a.nav-link(href='/assignments')
             span.menu-title My Assignments
             i.mdi.mdi-chart-bar.menu-icon
-        //
-          <li class="nav-item">
-          <a class="nav-link" href="pages/tables/basic-table.html">
-          <span class="menu-title">Sample Page</span>
-          <i class="mdi mdi-table-large menu-icon"></i>
-          </a>
-          </li>
         li.nav-item
-          a.nav-link(href='../../pages/registerForClasses/registerForClasses.html')
+          a.nav-link(href='/registerForClasses')
             span.menu-title Register For Classes
-            i.mdi.mdi-table-large.menu-icon
-        li.nav-item
-          a.nav-link(data-toggle='collapse' href='#general-pages' aria-expanded='false' aria-controls='general-pages')
-            span.menu-title Sample Pages
-            i.menu-arrow
-            i.mdi.mdi-medical-bag.menu-icon
-          #general-pages.collapse
-            ul.nav.flex-column.sub-menu
-              li.nav-item
-                a.nav-link(href='pages/samples/blank-page.html')  Blank Page 
-              li.nav-item
-                a.nav-link(href='pages/samples/login.html')  Login 
-              li.nav-item
-                a.nav-link(href='pages/samples/register.html')  Register 
-              li.nav-item
-                a.nav-link(href='pages/samples/error-404.html')  404 
-              li.nav-item
-                a.nav-link(href='pages/samples/error-500.html')  500 
         li.nav-item.sidebar-actions
-          span.nav-link
-            .border-bottom
-              h6.font-weight-normal.mb-3 Projects
-            button.btn.btn-block.btn-lg.btn-gradient-primary.mt-4 + Add a project
-            .mt-4
     // partial
     .main-panel
       .content-wrapper
@@ -276,53 +235,15 @@ head
                   button#add-task.add.btn.btn-gradient-primary.font-weight-bold.todo-list-add-btn Add
                 .list-wrapper
                   ul.d-flex.flex-column-reverse.todo-list.todo-list-custom
-                    li
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox')
-                          |  Meeting with Alisa
-                      i.remove.mdi.mdi-close-circle-outline
-                    li.completed
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox' checked='')
-                          |  Call John
-                      i.remove.mdi.mdi-close-circle-outline
-                    li
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox')
-                          |  Create invoice
-                      i.remove.mdi.mdi-close-circle-outline
-                    li
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox')
-                          |  Print Statements
-                      i.remove.mdi.mdi-close-circle-outline
-                    li.completed
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox' checked='')
-                          |  Prepare for presentation
-                      i.remove.mdi.mdi-close-circle-outline
-                    li
-                      .form-check
-                        label.form-check-label
-                          input.checkbox(type='checkbox')
-                          |  Pick up kids from school
-                      i.remove.mdi.mdi-close-circle-outline
       // content-wrapper ends
       // partial:partials/_footer.html
       footer.footer
         .d-sm-flex.justify-content-center.justify-content-sm-between
           span.text-muted.text-center.text-sm-left.d-block.d-sm-inline-block
-            | Copyright &copy; 2017 
-            a(href='https://www.bootstrapdash.com/' target='_blank') BootstrapDash
-            | . All rights reserved.
+            | Copyright &copy; 2019
+            |
           span.float-none.float-sm-right.d-block.mt-1.mt-sm-0.text-center
-            | Hand-crafted &amp; made with 
-            i.mdi.mdi-heart.text-danger
+            | Made by SJCME Fall 2019 Cohort 
       // partial
     // main-panel ends
   // page-body-wrapper ends

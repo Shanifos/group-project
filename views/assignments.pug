@@ -166,15 +166,17 @@ head
               table.col-lg-12.table.table-striped
                 thead
                   tr
-                    th  Course Name 
-                    th  Schedule 
-                    th  Teacher 
+                    th  Assignment Name
+                    th  Assignment Type 
+                    th  Due Date 
+                    th   Description  
                 tbody
-                  each classTables in classes 
+                  each assignmentTables in assignment
                     tr
-                      td #{classTables.courseName} 
-                      td #{classTables.schedule}
-                      td
+                      td #{assignmentTables.assignmentName} 
+                      td #{assignmentTables.assignmentType}
+                      td #{assignmentTables.dueDate}
+                      td #{assignmentTables.description}
   // content-wrapper ends
   // partial:../../partials/_footer.html
   footer.footer1

@@ -1,11 +1,13 @@
-const gradebook = (connection, Sequelize) => {
-    return connection.define('gradebookTable', {
-        id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, //somehow pulled in from userTable
-        classId: { type: Sequelize.INTEGER }, //from class table
-        assignmentGrade: { type: Sequelize.INTEGER },
-        average: { type: Sequelize.INTEGER }
-
-    }, { paranoid: true })
+const gradebook = (connection, Sequelize, assignments, users) => {
+    return connection.define(
+        'gradebookTables',
+        {
+            userId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: users, key: 'id' } },
+            assignmentId: { type: Sequelize.INTEGER, primaryKey: true, reference: { model: assignments, key: 'id' } },
+            assignmentGrade: { type: Sequelize.INTEGER }
+        },
+        { paranoid: true }
+    )
 }
 
 module.exports = gradebook

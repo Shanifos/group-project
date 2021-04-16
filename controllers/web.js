@@ -1,4 +1,5 @@
 const models = require('../models')
+const { cleanClasses, cleanAssignments } = require('../helpers/cleaners')
 
 async function getIndex(request, response) {
     return response.render('index')
@@ -14,42 +15,90 @@ async function getDashboard(request, response) {
 }
 
 async function getClasses(request, response) {
-    console.log(models.classes.id)
 
-
-    [getClasses] = await models.classes.findOrCreate({
+    request.session.userId = 1
+    const usersClasses = await models.users.findOne({
         where: { id: request.session.userId },
-        defaults: {
-            schedule: models.classes.schedule,
-            courseName: models.classes.courseName,
-        }
+        include: { model: models.classTables },
     })
-
-    let classesId = []
-    [newClass] = await models.users.findOrCreate({
-        where: { id: request.session.userId }
-    })
-    classesId.push(newClass.id)
-    getClasses.setclasses(classesId)
-    await newClass.save()
-
-
-    console.log(getClasses)
-    //request.session.courseName = class.courseName
-    //request.session.schedule = class.schedule
-    response.render('classes')
+    console.log(usersClasses.classTables.map(cleanClasses))
+    return usersClasses
+        ? response.render('classes', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName, classes: usersClasses.classTables.map(cleanClasses) })
+        : response.sendStatus(404)
 }
 
 async function getGrades(request, response) {
-    return response.render('grades')
-}
+    request.session.userId = 4
+    const usersGrades = await models.users.findAll({
+        where: { id: request.session.userId },
+        include: { model: models.assignments }
+    })
 
-async function getAssignments(request, response) {
-    return response.render('assignments')
+    return usersGrades
+        ? response.render('grades', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName })
+        //? response.render('gradebook')
+        : response.sendStatus(404)
 }
+// below we try to get grades by class so a teacher can see a list of students, assignments and grades for each.  
+/*async function getGradesByClass(request, response) {
+    request.session.userId = 1
+    const classGrades = await models.classTables.findOne({
+        where: { id: request.sessions.userId },
+        include: { model: models.assignments }
+    })
+
+    return classGrades
+        ? response.send(classGrades)
+        : response.sendStatus(404)
+}*/
 
 async function registerForClasses(request, response) {
-    return response.render('registerForClasses')
+    return response.render('registerForClasses', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName })
+}
+
+async function getAttendance(request, response) {
+    request.session.userId = 3
+    const attendance = await models.users.findOne({
+        where: { id: request.session.userId, role: 'student' },
+        include: { model: models.attendance }
+    })
+    response.send(attendance)
+}
+
+async function getClasses(request, response) {
+
+    request.session.userId = 1
+    const usersClasses = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.classTables },
+    })
+    console.log(usersClasses.classTables.map(cleanClasses))
+    return usersClasses
+        ? response.render('classes', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName, classes: usersClasses.classTables.map(cleanClasses) })
+        : response.sendStatus(404)
+}
+async function getAssignmentsByUser(request, response) {
+    request.session.userId = 1
+    const userAssignments = await models.users.findOne({
+        where: { id: request.session.userId },
+        include: { model: models.assignments }
+    })
+    console.log(userAssignments.assignmentsTables.map(cleanAssignments))
+    return userAssignments
+        ? response.render('assignments', { role: request.session.role, userId: request.session.userId, firstName: request.session.firstName, lastName: request.session.lastName, assignment: userAssignments.assignmentsTables.map(cleanAssignments) })
+        : response.sendStatus(404)
+}
+
+async function getAssignmentsByClass(request, response) {
+    request.session.classId = 1
+    const userAssignment = await models.classTables.findOne({
+        where: { id: request.session.classId },
+        include: { model: models.assignments }
+    })
+    return userAssignments
+        ? response.render('assignments')
+
+        : response.sendStatus(404)
 }
 
 module.exports = {
@@ -57,6 +106,8 @@ module.exports = {
     getDashboard,
     getClasses,
     getGrades,
-    getAssignments,
     registerForClasses,
+    getAssignmentsByUser,
+    getAssignmentsByClass,
+    getAttendance
 }
